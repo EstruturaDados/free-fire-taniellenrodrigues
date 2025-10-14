@@ -15,6 +15,7 @@ typedef struct {
 void inserirItem(Item mochila[], int *totalItens);
 void removerItem(Item mochila[], int *totalItens);
 void listarItens(Item mochila[], int totalItens);
+void buscarItem(Item mochila[], int totalItens);
 
 int main() {
     Item mochila[MAX_ITENS];  // Vetor que representa a mochila
@@ -26,6 +27,7 @@ int main() {
         printf("1. Inserir item\n");
         printf("2. Remover item\n");
         printf("3. Listar itens\n");
+        printf("4. Buscar item\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -40,6 +42,9 @@ int main() {
                 break;
             case 3:
                 listarItens(mochila, totalItens);
+                break;
+            case 4:
+                buscarItem(mochila, totalItens);
                 break;
             case 0:
                 printf("Saindo do sistema...\n");
@@ -118,4 +123,26 @@ void listarItens(Item mochila[], int totalItens) {
         printf("%d. Nome: %s | Tipo: %s | Quantidade: %d\n",
                i + 1, mochila[i].nome, mochila[i].tipo, mochila[i].quantidade);
     }
+}
+
+// Função para buscar um item pelo nome
+void buscarItem(Item mochila[], int totalItens) {
+    if (totalItens == 0) {
+        printf("Mochila vazia.\n");
+        return;
+    }
+
+    char nome[30];
+    printf("Digite o nome do item a buscar: ");
+    scanf("%s", nome);
+
+    for (int i = 0; i < totalItens; i++) {
+        if (strcmp(mochila[i].nome, nome) == 0) {
+            printf("Item encontrado! Nome: %s | Tipo: %s | Quantidade: %d\n",
+                   mochila[i].nome, mochila[i].tipo, mochila[i].quantidade);
+            return;
+        }
+    }
+
+    printf("Item nao encontrado.\n");
 }
